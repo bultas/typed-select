@@ -1,23 +1,23 @@
-super-select {
+typed-select {
   display: inline-flex;
   flex-wrap: wrap;
   border: 1px solid #eee;
 }
 
-super-select input {
+typed-select input {
   border: none;
   outline: none;
   font-family: inherit;
   font-size: inherit;
 }
 
-super-select [data-type="tag"] {
+typed-select [data-type="tag"] {
   display: inline-block;
   padding: .2em .6em;
   background: #f7f7f7;
   margin: .2em;
 }
 
-super-select [data-type="tag"] + * {
+typed-select [data-type="tag"] + * {
   margin-left: .2em;
 }
