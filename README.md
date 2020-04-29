@@ -1,6 +1,9 @@
 # Typed Select
 
-Custom element that enhance <select multiple /> with autocomplete variant
+Custom element that enhance `<select multiple />` with autocomplete variant
+
+## Demo
+- https://bultas.github.io/typed-select/
 
 
 ## Usage
