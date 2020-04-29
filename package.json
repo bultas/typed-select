@@ -1,6 +1,6 @@
 {
   "name": "typed-select",
-  "version": "0.6.1",
+  "version": "0.6.2",
   "description": "Custom element that enhance <select multiple /> with autocomplete variant",
   "main": "index.js",
   "repository": {
