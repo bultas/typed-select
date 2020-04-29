@@ -20,47 +20,23 @@ class TypedSelect extends HTMLElement {
   constructor() {
     super();
 
+    this.onInputChange = this.onInputChange.bind(this);
+    this.onInputKeyDown = this.onInputKeyDown.bind(this);
+    this.onSelectChange = this.onSelectChange.bind(this);
+  }
+
+  connectedCallback() {
     const DATALIST_ID = `datalist_${this.getAttribute("select")}`;
 
-    this.select = document.getElementById(this.getAttribute("select"));
-    this.select.onchange = () => {
-      this.input.value = "";
-      // this.input.dispatchEvent(new Event("change", { bubbles: true }));
-      this.createDatalistOptions();
-      this.createTags();
-    };
+    const select = document.getElementById(this.getAttribute("select"));
+    select.onchange = this.onSelectChange;
+    this.select = select;
 
     const input = document.createElement("input");
     input.autocomplete = false;
     input.setAttribute("list", DATALIST_ID);
-
-    input.onchange = (e) => {
-      e.stopPropagation();
-      this.updateSelect(e.target.value);
-    };
-
-    input.onkeydown = (e) => {
-      const value = e.target.value;
-
-      if (e.keyCode === 8 && value.length === 0) {
-        const options = [...this.select.options];
-        options.reverse().every((option) => {
-          if (option.selected) {
-            option.selected = false;
-            return false;
-          }
-          return true;
-        });
-
-        this.select.dispatchEvent(new Event("change", { bubbles: true }));
-      }
-
-      if (e.keyCode === 13 && value.length > 0) {
-        e.preventDefault();
-        this.updateSelect(value);
-      }
-    };
-
+    input.onchange = this.onInputChange;
+    input.onkeydown = this.onInputKeyDown;
     this.input = input;
     this.appendChild(input);
 
@@ -68,11 +44,43 @@ class TypedSelect extends HTMLElement {
     datalist.id = DATALIST_ID;
     this.datalist = datalist;
     this.appendChild(datalist);
-  }
 
-  connectedCallback() {
     this.createDatalistOptions();
     this.createTags();
+  }
+
+  onSelectChange() {
+    this.input.value = "";
+    // this.input.dispatchEvent(new Event("change", { bubbles: true }));
+    this.createDatalistOptions();
+    this.createTags();
+  }
+
+  onInputChange(e) {
+    e.stopPropagation();
+    this.updateSelect(e.target.value);
+  }
+
+  onInputKeyDown(e) {
+    const value = e.target.value;
+
+    if (e.keyCode === 8 && value.length === 0) {
+      const options = [...this.select.options];
+      options.reverse().every((option) => {
+        if (option.selected) {
+          option.selected = false;
+          return false;
+        }
+        return true;
+      });
+
+      this.select.dispatchEvent(new Event("change", { bubbles: true }));
+    }
+
+    if (e.keyCode === 13 && value.length > 0) {
+      e.preventDefault();
+      this.updateSelect(value);
+    }
   }
 
   updateSelect(value) {
