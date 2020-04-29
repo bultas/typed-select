@@ -2,7 +2,7 @@
   "name": "typed-select",
   "version": "0.6.2",
   "description": "Custom element that enhance <select multiple /> with autocomplete variant",
-  "main": "index.js",
+  "main": "typed-select.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/bultas/typed-select.git"
